@@ -8,6 +8,12 @@
 
 import UIKit
 
+struct studentMarks {
+    var mark1 = 100
+    var mark2 = 200
+    var mark3 = 300
+}
+
 class ViewController: UIViewController,UITextFieldDelegate {
 
     @IBOutlet weak var txtUsername: UITextField!
@@ -72,6 +78,32 @@ class ViewController: UIViewController,UITextFieldDelegate {
             alert.addAction(okaction)
             self.present(alert, animated: true, completion: nil)
         }
+        
+        UserDefaults.standard.setValue(txtUsername.text, forKey: "uname")
+        print(UserDefaults.standard.value(forKey: "uname"))
+        
+        let marks = studentMarks()
+        print("Mark1 is \(marks.mark1)")
+        print("Mark2 is \(marks.mark2)")
+        print("Mark3 is \(marks.mark3)")
+        
+        let dictionary = ["myKey" : NSNumber(value: 12)] as NSDictionary
+        UserDefaults.standard.set(dictionary, forKey: "myDict") //[myKey : 12]
+        let d = UserDefaults.standard.dictionary(forKey: "myDict") //{[myKey : 12]}
+    
+        print(d)
+        
+        var arr=[NSDictionary]()
+        
+        let dic = ["obj":"val"]
+        arr.append(dic as NSDictionary)
+        print(arr)
+        
+        UserDefaults.standard.set(arr, forKey: "data")
+        
+        print("data=")
+        print(UserDefaults.standard.value(forKey: "data") ?? "dd")
+        
     }
 
 }
