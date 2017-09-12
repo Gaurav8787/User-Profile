@@ -39,6 +39,10 @@ class HomeViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     public func numberOfSections(in tableView: UITableView) -> Int {
         return 1;
     }
+    
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "pushtocoll", sender: self)
+    }
 
 
    
