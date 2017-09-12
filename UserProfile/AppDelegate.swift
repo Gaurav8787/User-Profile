@@ -13,9 +13,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let vcc:UIViewController?
+        
+        if UserDefaults.standard.value(forKey: "dones") != nil {
+            
+            let iscompl = UserDefaults.standard.value(forKey: "dones") as! Bool
+            
+            if iscompl == true {
+                vcc = storyboard.instantiateViewController(withIdentifier: "HomeViewController")
+            } else{
+                vcc = storyboard.instantiateViewController(withIdentifier: "ViewController")
+            }
+
+        } else {
+            
+            vcc = storyboard.instantiateViewController(withIdentifier: "ViewController")
+        }
+        
+        let nav = application.windows[0].rootViewController as! UINavigationController
+        nav.viewControllers=[vcc!]
+        
         return true
     }
 

@@ -18,11 +18,13 @@ class ViewController: UIViewController,UITextFieldDelegate {
 
     @IBOutlet weak var txtUsername: UITextField!
     
+    var strName="hello"
+    lazy var strSurName = "surname"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
-        
+            
     }
 
     override func didReceiveMemoryWarning() {
@@ -68,7 +70,7 @@ class ViewController: UIViewController,UITextFieldDelegate {
             print("true")
         }
         
-        if txtUsername.text == "" {
+        if txtUsername.text == "" || txtUsername.text == "ddf" {
             let alert = UIAlertController(title: "MyApp", message: "Please insert name", preferredStyle: UIAlertControllerStyle.alert)
             
             let okaction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: { action in
@@ -79,6 +81,44 @@ class ViewController: UIViewController,UITextFieldDelegate {
             self.present(alert, animated: true, completion: nil)
         }
         
+        var dicuser = Dictionary<String,String>()
+        
+        dicuser["uname"]=txtUsername.text
+        dicuser["pass"]="pwd"
+        
+       
+        
+        var dicuser2 = Dictionary<String,String>()
+        dicuser2["uname"]="2"
+        dicuser2["pass"]="pwd2"
+        
+        var dataA = [Dictionary<String, String>]()
+        dataA.append(dicuser)
+        dataA.append(dicuser2)
+        
+        UserDefaults.standard.setValue(dataA, forKey: "creden")
+        
+        UserDefaults.standard.setValue(dicuser2, forKey: "data2")
+        
+        let dic2 = UserDefaults.standard.value(forKey: "data2") as! Dictionary<String,String>
+        
+        print(dic2)
+        
+        print(UserDefaults.standard.value(forKey: "creden")!)
+        
+        let arr = UserDefaults.standard.value(forKey: "creden") as!  [Dictionary<String, String>];
+        
+        for element in arr{
+            print(element)
+            
+            print(element["uname"] ?? "dfv")
+            print(element["pass"] ?? "dfv")
+        }
+        
+        UserDefaults.standard.set(true, forKey: "dones")
+        
+        return
+        /*
         UserDefaults.standard.setValue(txtUsername.text, forKey: "uname")
         print(UserDefaults.standard.value(forKey: "uname"))
         
@@ -102,7 +142,7 @@ class ViewController: UIViewController,UITextFieldDelegate {
         UserDefaults.standard.set(arr, forKey: "data")
         
         print("data=")
-        print(UserDefaults.standard.value(forKey: "data") ?? "dd")
+        print(UserDefaults.standard.value(forKey: "data") ?? "dd")*/
         
     }
 

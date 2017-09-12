@@ -14,6 +14,9 @@
 		F42662A31F66B41C00107163 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F42662A11F66B41C00107163 /* LaunchScreen.storyboard */; };
 		F42662AE1F66B41C00107163 /* UserProfileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42662AD1F66B41C00107163 /* UserProfileTests.swift */; };
 		F42662B91F66B41C00107163 /* UserProfileUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42662B81F66B41C00107163 /* UserProfileUITests.swift */; };
+		F4573FEF1F67D676009429BF /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4573FEE1F67D676009429BF /* HomeViewController.swift */; };
+		F4573FF41F67F0DA009429BF /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4573FF31F67F0DA009429BF /* CustomTableViewCell.swift */; };
+		F4573FF61F67F742009429BF /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4573FF51F67F742009429BF /* EditViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +50,9 @@
 		F42662B41F66B41C00107163 /* UserProfileUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UserProfileUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F42662B81F66B41C00107163 /* UserProfileUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileUITests.swift; sourceTree = "<group>"; };
 		F42662BA1F66B41C00107163 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F4573FEE1F67D676009429BF /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		F4573FF31F67F0DA009429BF /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		F4573FF51F67F742009429BF /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +109,9 @@
 				F426629F1F66B41C00107163 /* Assets.xcassets */,
 				F42662A11F66B41C00107163 /* LaunchScreen.storyboard */,
 				F42662A41F66B41C00107163 /* Info.plist */,
+				F4573FEE1F67D676009429BF /* HomeViewController.swift */,
+				F4573FF31F67F0DA009429BF /* CustomTableViewCell.swift */,
+				F4573FF51F67F742009429BF /* EditViewController.swift */,
 			);
 			path = UserProfile;
 			sourceTree = "<group>";
@@ -262,8 +271,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4573FF61F67F742009429BF /* EditViewController.swift in Sources */,
 				F426629B1F66B41C00107163 /* ViewController.swift in Sources */,
 				F42662991F66B41C00107163 /* AppDelegate.swift in Sources */,
+				F4573FF41F67F0DA009429BF /* CustomTableViewCell.swift in Sources */,
+				F4573FEF1F67D676009429BF /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -514,6 +526,7 @@
 				F42662BF1F66B41C00107163 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F42662C01F66B41C00107163 /* Build configuration list for PBXNativeTarget "UserProfileTests" */ = {
 			isa = XCConfigurationList;
@@ -522,6 +535,7 @@
 				F42662C21F66B41C00107163 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F42662C31F66B41C00107163 /* Build configuration list for PBXNativeTarget "UserProfileUITests" */ = {
 			isa = XCConfigurationList;
@@ -530,6 +544,7 @@
 				F42662C51F66B41C00107163 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
