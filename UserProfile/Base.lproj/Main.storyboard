@@ -32,11 +32,23 @@
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NyM-hi-P1T">
-                                <rect key="frame" x="172" y="130" width="30" height="30"/>
+                                <rect key="frame" x="163" y="111" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="OK"/>
                                 <connections>
                                     <action selector="btntapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sHI-l1-lzX"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8tE-RB-DSc">
+                                <rect key="frame" x="58" y="158" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pJv-H5-f4H">
+                                <rect key="frame" x="155" y="336" width="47" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="upload"/>
+                                <connections>
+                                    <action selector="uploadPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cig-gX-lPs"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -44,6 +56,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="T9L-x5-Klb"/>
                     <connections>
+                        <outlet property="imgProfile" destination="8tE-RB-DSc" id="2il-Ml-kZw"/>
                         <outlet property="txtUsername" destination="hig-Ot-sFU" id="Lk3-f7-fCt"/>
                     </connections>
                 </viewController>
@@ -149,15 +162,32 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="t4J-xL-bXQ">
-                                <rect key="frame" x="139" y="137" width="97" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="t4J-xL-bXQ">
+                                <rect key="frame" x="139" y="137" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="Lod-IG-ZOo"/>
+                                    <constraint firstAttribute="height" constant="100" id="Udq-QE-5bn"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cUD-H4-rQH">
+                                <rect key="frame" x="139" y="263" width="97" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="t4J-xL-bXQ" firstAttribute="top" secondItem="OcB-DS-eQM" secondAttribute="bottom" constant="137" id="7c0-qk-AGM"/>
+                            <constraint firstItem="cUD-H4-rQH" firstAttribute="leading" secondItem="Sdx-ka-hdn" secondAttribute="leading" constant="139" id="CMA-Y6-sC4"/>
+                            <constraint firstItem="HJJ-Bh-zsy" firstAttribute="top" secondItem="cUD-H4-rQH" secondAttribute="bottom" constant="123" id="MPf-MV-qjF"/>
+                            <constraint firstAttribute="trailing" secondItem="cUD-H4-rQH" secondAttribute="trailing" constant="84" id="f7L-IV-6iF"/>
+                            <constraint firstItem="t4J-xL-bXQ" firstAttribute="leading" secondItem="Sdx-ka-hdn" secondAttribute="leading" constant="139" id="faU-qo-bTq"/>
+                            <constraint firstItem="cUD-H4-rQH" firstAttribute="top" secondItem="t4J-xL-bXQ" secondAttribute="bottom" constant="26" id="k1w-JN-lDu"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="txtEdit" destination="t4J-xL-bXQ" id="ALT-An-OwK"/>
@@ -170,7 +200,7 @@
         <!--Detail View Controller-->
         <scene sceneID="PcD-u7-Y6B">
             <objects>
-                <viewController id="48A-gd-PlS" customClass="DetailViewController" customModule="UserProfile" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="48A-gd-PlS" customClass="DetailViewController" customModule="UserProfile" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="c8s-1U-Ryw"/>
                         <viewControllerLayoutGuide type="bottom" id="Rzh-wD-CxU"/>
@@ -182,7 +212,6 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="CaS-kf-zkl">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                <inset key="scrollIndicatorInsets" minX="100" minY="10" maxX="100" maxY="10"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="fBT-UP-4Od">
                                     <size key="itemSize" width="100" height="100"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>

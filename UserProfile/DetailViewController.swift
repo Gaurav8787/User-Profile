@@ -15,7 +15,7 @@ class DetailViewController: UIViewController,UICollectionViewDelegate,UICollecti
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        var layout = clview.collectionViewLayout as! UICollectionViewFlowLayout
+        let layout = clview.collectionViewLayout as! UICollectionViewFlowLayout
         layout.sectionInset = UIEdgeInsetsMake(0, 10, 0, 10);
         layout.minimumInteritemSpacing = 10; // this number could be anything <=5. Need it here because the default is 10.
         

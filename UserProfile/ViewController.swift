@@ -13,11 +13,12 @@ struct studentMarks {
     var mark2 = 200
     var mark3 = 300
 }
-
-class ViewController: UIViewController,UITextFieldDelegate {
+class ViewController: UIViewController,UITextFieldDelegate,UIImagePickerControllerDelegate,
+UINavigationControllerDelegate {
 
     @IBOutlet weak var txtUsername: UITextField!
     
+    @IBOutlet weak var imgProfile: UIImageView!
     var strName="hello"
     lazy var strSurName = "surname"
     
@@ -61,7 +62,87 @@ class ViewController: UIViewController,UITextFieldDelegate {
         return result
         
     }
+    
+    func alerDisplayForOK(pTitle:String,pMessage:String) {
+        
+        let alert = UIAlertController(title: pTitle, message: pMessage, preferredStyle: UIAlertControllerStyle.alert)
+        
+        let okaction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
+            alert.dismiss(animated: true, completion: nil)
+        })
+        
+        alert.addAction(okaction)
+        self.present(alert, animated: true, completion: nil)
 
+    }
+
+    @IBAction func uploadPressed(_ sender: UIButton) {
+        
+        let alert = UIAlertController(title: "app", message: "please select", preferredStyle: .actionSheet)
+        
+        let action = UIAlertAction(title: "Gallery", style: .default, handler: { action in
+            self.opnegallery()
+        })
+        
+        let actioncamera = UIAlertAction(title: "Camera", style: .default, handler: { action in
+            self.opncamera()
+        })
+
+
+        alert.addAction(action)
+        alert.addAction(actioncamera)
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+    
+    func opnegallery()  {
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = .photoLibrary;
+            imagePicker.allowsEditing = true
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
+    func opncamera()  {
+        
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = .camera;
+            imagePicker.allowsEditing = false
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+        
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]){
+        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            imgProfile.contentMode = .scaleAspectFit
+            imgProfile.image = pickedImage
+            
+            let imageData = UIImageJPEGRepresentation(imgProfile.image!, 0.6)
+            let compressedJPGImage = UIImage(data: imageData!)
+            UIImageWriteToSavedPhotosAlbum(compressedJPGImage!, nil, nil, nil)
+            
+            let path = try! FileManager.default.url(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask, appropriateFor: nil, create: false)
+            let newPath = path.appendingPathComponent("image.jpg")
+           // let jpgImageData = UIImageJPEGRepresentation(image, 1.0)
+            do {
+                try imageData!.write(to: newPath)
+            } catch {
+                print(error)
+            }
+            
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
     @IBAction func btntapped(_ sender: UIButton) {
         
         if isValidEmail(testStr: txtUsername.text!) == false {
@@ -70,15 +151,9 @@ class ViewController: UIViewController,UITextFieldDelegate {
             print("true")
         }
         
-        if txtUsername.text == "" || txtUsername.text == "ddf" {
-            let alert = UIAlertController(title: "MyApp", message: "Please insert name", preferredStyle: UIAlertControllerStyle.alert)
-            
-            let okaction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: { action in
-                alert.dismiss(animated: true, completion: nil)
-            })
-            
-            alert.addAction(okaction)
-            self.present(alert, animated: true, completion: nil)
+        if txtUsername.text == "" {
+            alerDisplayForOK(pTitle: "App", pMessage: "Please enter value")
+            return
         }
         
         var dicuser = Dictionary<String,String>()
