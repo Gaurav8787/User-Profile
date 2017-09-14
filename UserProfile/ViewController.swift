@@ -22,10 +22,72 @@ UINavigationControllerDelegate {
     var strName="hello"
     lazy var strSurName = "surname"
     
+    let dtpicker = UIDatePicker()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-            
+        showdtpicker()
+    }
+    
+    func showdtpicker() {
+        dtpicker.datePickerMode = .date
+        
+        var date = Date()
+        print(date)
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yyyy"
+        
+        
+        let minute:TimeInterval = 60.0
+        let hour:TimeInterval = 60.0 * minute
+        let day:TimeInterval = 24 * hour
+        
+       let strdate = Date(timeIntervalSinceNow: day)
+        
+        let newstr:String = formatter.string(from: strdate)
+        
+        let dte:Date = formatter.date(from: "11/11/2011")!
+        print(dte,newstr)
+        
+        // Age of 18.
+        let MINIMUM_AGE: Date = Calendar.current.date(byAdding: .year, value: -18, to: Date())!;
+        print(MINIMUM_AGE)
+        
+        dtpicker.minimumDate = MINIMUM_AGE
+
+        // Age of 100.
+        let MAXIMUM_AGE: Date = Calendar.current.date(byAdding: .year, value: 10, to: Date())!;
+        print(MAXIMUM_AGE)
+        
+        dtpicker.maximumDate=MAXIMUM_AGE
+        
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        
+        let donebtn = UIBarButtonItem(title: "done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(doneFunction))
+        let spacingbtn = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: self, action: nil)
+        let nobtn = UIBarButtonItem(title: "done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(noFunction))
+
+        toolbar.setItems([nobtn,spacingbtn,donebtn], animated: true)
+        
+        txtUsername.inputAccessoryView=toolbar
+        txtUsername.inputView=dtpicker
+        
+    }
+    
+    func doneFunction(){
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yyyy"
+        txtUsername.text=formatter.string(from: dtpicker.date)
+        
+        self.view.endEditing(true)
+    }
+    
+    func noFunction(){
+        self.view.endEditing(true)
     }
 
     override func didReceiveMemoryWarning() {

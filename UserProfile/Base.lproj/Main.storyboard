@@ -143,6 +143,7 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
+                        <outlet property="tblList" destination="p7i-01-58O" id="H8f-2e-POp"/>
                         <segue destination="48A-gd-PlS" kind="show" identifier="pushtocoll" id="S4P-Dj-D7o"/>
                     </connections>
                 </viewController>
