@@ -14,23 +14,84 @@ struct studentMarks {
     var mark3 = 300
 }
 class ViewController: UIViewController,UITextFieldDelegate,UIImagePickerControllerDelegate,
-UINavigationControllerDelegate {
+UINavigationControllerDelegate,UIPickerViewDelegate,UIPickerViewDataSource {
 
     @IBOutlet weak var txtUsername: UITextField!
+    
+    @IBOutlet weak var txtlist: UITextField!
     
     @IBOutlet weak var imgProfile: UIImageView!
     var strName="hello"
     lazy var strSurName = "surname"
     
+    var names = ["suraj","manish","amit","hiren"];
+    
+    var selectedNameRow:Int?
+    
     let dtpicker = UIDatePicker()
+    var pickerview = UIPickerView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         showdtpicker()
+    
+        
     }
     
+    func pickData(_ sender:UITextField) {
+        
+        self.pickerview = UIPickerView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 216))
+        pickerview.delegate=self
+        pickerview.dataSource=self
+        txtlist.inputView=self.pickerview
+        
+        // toolbar
+        let toolbar = UIToolbar()
+        toolbar.barStyle = .default
+        toolbar.isTranslucent = true
+        toolbar.sizeToFit()
+        
+        let leftitem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneClicked))
+        let spacingitem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let rightitem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelClicked))
+        
+        toolbar.setItems([leftitem,spacingitem,rightitem], animated: true)
+        
+        txtlist.inputAccessoryView=toolbar
+        
+    }
+    
+    func doneClicked(){
+        txtlist.resignFirstResponder()
+        
+        self.txtlist.text = names[selectedNameRow!]
+    }
+    
+    func cancelClicked() {
+        txtlist.resignFirstResponder()
+    }
+    
+    //MARK:- pickerview delegate
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return names.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return names[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selectedNameRow = row
+    }
+    
+    
     func showdtpicker() {
+        
         dtpicker.datePickerMode = .date
         
         var date = Date()
@@ -68,7 +129,7 @@ UINavigationControllerDelegate {
         
         let donebtn = UIBarButtonItem(title: "done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(doneFunction))
         let spacingbtn = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: self, action: nil)
-        let nobtn = UIBarButtonItem(title: "done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(noFunction))
+        let nobtn = UIBarButtonItem(title: "cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(noFunction))
 
         toolbar.setItems([nobtn,spacingbtn,donebtn], animated: true)
         
@@ -95,11 +156,47 @@ UINavigationControllerDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == txtlist {
+            pickData(textField)
+        }
+        
+        //move textfields up
+        let myScreenRect: CGRect = UIScreen.main.bounds
+        let keyboardHeight : CGFloat = 216
+        
+        UIView.beginAnimations( "animateView", context: nil)
+       // var movementDuration:TimeInterval = 0.35
+        var needToMove: CGFloat = 0
+        
+        var frame : CGRect = self.view.frame
+        if (textField.frame.origin.y + textField.frame.size.height + UIApplication.shared.statusBarFrame.size.height > (myScreenRect.size.height - keyboardHeight - 30)) {
+            needToMove = (textField.frame.origin.y + textField.frame.size.height + UIApplication.shared.statusBarFrame.size.height) - (myScreenRect.size.height - keyboardHeight - 30);
+        }
+        
+        frame.origin.y = -needToMove
+        self.view.frame = frame
+        UIView.commitAnimations()
+
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        //move textfields back down
+        UIView.beginAnimations( "animateView", context: nil)
+   //     var movementDuration:TimeInterval = 0.35
+        var frame : CGRect = self.view.frame
+        frame.origin.y = 0
+        self.view.frame = frame
+        UIView.commitAnimations()
+    }
+
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         
         return true
     }
+    
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
       /*  let maxL = 5
@@ -149,10 +246,16 @@ UINavigationControllerDelegate {
         let actioncamera = UIAlertAction(title: "Camera", style: .default, handler: { action in
             self.opncamera()
         })
+        
+        let actionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+           alert.dismiss(animated: true, completion: nil)
+        })
 
 
         alert.addAction(action)
         alert.addAction(actioncamera)
+        alert.addAction(actionCancel)
+        
         self.present(alert, animated: true, completion: nil)
         
     }
@@ -188,7 +291,7 @@ UINavigationControllerDelegate {
             imgProfile.contentMode = .scaleAspectFit
             imgProfile.image = pickedImage
             
-            let imageData = UIImageJPEGRepresentation(imgProfile.image!, 0.6)
+            let imageData = UIImageJPEGRepresentation(pickedImage, 0.6)
             let compressedJPGImage = UIImage(data: imageData!)
             UIImageWriteToSavedPhotosAlbum(compressedJPGImage!, nil, nil, nil)
             
