@@ -28,6 +28,8 @@ UINavigationControllerDelegate,UIPickerViewDelegate,UIPickerViewDataSource {
     
     var selectedNameRow:Int?
     
+    var currentSelectedNameRow:Int?
+    
     let dtpicker = UIDatePicker()
     var pickerview = UIPickerView()
     
@@ -45,6 +47,17 @@ UINavigationControllerDelegate,UIPickerViewDelegate,UIPickerViewDataSource {
         pickerview.delegate=self
         pickerview.dataSource=self
         txtlist.inputView=self.pickerview
+        
+        if (selectedNameRow != nil) {
+            self.pickerview.selectRow(selectedNameRow!, inComponent: 0, animated: true)
+        } else {
+            if names.count > 0 {
+                selectedNameRow = 0
+                currentSelectedNameRow = 0
+            }
+        }
+        
+        
         
         // toolbar
         let toolbar = UIToolbar()
@@ -65,6 +78,7 @@ UINavigationControllerDelegate,UIPickerViewDelegate,UIPickerViewDataSource {
     func doneClicked(){
         txtlist.resignFirstResponder()
         
+        selectedNameRow = currentSelectedNameRow
         self.txtlist.text = names[selectedNameRow!]
     }
     
@@ -85,11 +99,13 @@ UINavigationControllerDelegate,UIPickerViewDelegate,UIPickerViewDataSource {
         return names[row]
     }
     
+    
+    
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedNameRow = row
+        currentSelectedNameRow = row
     }
     
-    
+    //MARK: Date picker
     func showdtpicker() {
         
         dtpicker.datePickerMode = .date
@@ -159,6 +175,12 @@ UINavigationControllerDelegate,UIPickerViewDelegate,UIPickerViewDataSource {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == txtlist {
             pickData(textField)
+        }
+        
+        if textField == txtUsername && !(txtUsername.text?.isEmpty)! {
+            let dtformatter = DateFormatter()
+            dtformatter.dateFormat = "dd/MM/yyyy"
+            dtpicker.date = dtformatter.date(from: txtUsername.text!)!
         }
         
         //move textfields up
