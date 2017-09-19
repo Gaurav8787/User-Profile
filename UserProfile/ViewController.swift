@@ -311,11 +311,11 @@ UINavigationControllerDelegate,UIPickerViewDelegate,UIPickerViewDataSource {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]){
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             imgProfile.contentMode = .scaleAspectFit
-            imgProfile.image = pickedImage
+           
             
             let imageData = UIImageJPEGRepresentation(pickedImage, 0.6)
-            let compressedJPGImage = UIImage(data: imageData!)
-            UIImageWriteToSavedPhotosAlbum(compressedJPGImage!, nil, nil, nil)
+//            let compressedJPGImage = UIImage(data: imageData!)
+//            UIImageWriteToSavedPhotosAlbum(compressedJPGImage!, nil, nil, nil)
             
             let path = try! FileManager.default.url(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask, appropriateFor: nil, create: false)
             let newPath = path.appendingPathComponent("image.jpg")
@@ -325,6 +325,10 @@ UINavigationControllerDelegate,UIPickerViewDelegate,UIPickerViewDataSource {
             } catch {
                 print(error)
             }
+            
+           // let imageURL = URL(fileURLWithPath: newPath)
+            let image = UIImage(contentsOfFile: newPath.path)
+             imgProfile.image = image
             
         }
         dismiss(animated: true, completion: nil)
